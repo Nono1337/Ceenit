@@ -6,7 +6,6 @@ from time import sleep
 from datetime import datetime
 from threading import Thread
 from xml.dom import minidom
-from pydantic import BaseModel
 import yaml
 
 # globale Varibalen
@@ -16,12 +15,6 @@ app = FastAPI()
 # Einstellung für das Logging
 logging.basicConfig(format='%(asctime)s: %(message)s',
                     level=logging.INFO, datefmt='%H:%M:%S')
-
-
-
-#Config einlesen
-with open('diwo_webservice_config.json') as json_file:
-    config = json.load(json_file)
 
 #Logging einlesen
 with open('logging.yaml', 'r') as f:
