@@ -38,5 +38,37 @@ def getSession(file: UploadFile = File(...)):
 def getFiveHottest():
     pass
 
+@app.get("/movie/search/{title}")
+def getMovieSearch(title: str):
+    pass
+
+@app.post("/movie/review/{movieid}")
+def postReviewToMovie(movieid: int):
+    pass
+
+# localhost:1234/account/watchlist?userid=1221234
+@app.get("/account/watchlist/{userid}")
+def getWatchlist(userid: int):
+    pass
+
+@app.post("/account/watchlist/{userid}")
+def addWatchlist(userid: int):
+    pass
+
+@app.get("/account/timeline/{userid}")
+def getTimeLine(userid: int):
+    pass
+
+@app.post("/account/timeline/{userid}")
+def getTimeLine(userid: int):
+    pass
+
+@app.post("/account/{userid}")
+def addTimeLine(userid: int):
+    pass
+
+@app.get("/account/reviews/{userid}")
+def getReviews(userid: int):
+    pass
 
 
