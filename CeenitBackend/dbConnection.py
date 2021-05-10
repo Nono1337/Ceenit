@@ -1,18 +1,22 @@
+import logging
+from fastapi import HTTPException
 import pymongo
 
 def DBconnect():
-    client = pymongo.MongoClient("mongodb+srv://admin:7SQH8lDQJDwzeY2GfLLS@cluster0.kjvno.mongodb.net/Cluster0?retryWrites=true&w=majority")
+    client = pymongo.MongoClient("mongodb+srv://ceenit_admin:KHPta9S8dAIbSOe9@ceenit.kjvno.mongodb.net/Ceenit?retryWrites=true&w=majority")
     return client.Ceenit
 
-def getUsersIdByUsername(username: str):
+def loginUser(username: str, password: str):
     db = DBconnect()
     userCollection = db["users"]
-    myquery = {"username": username}
-    myresp = userCollection.find(myquery)
-    return myresp[0]
+    myquery = {"username": username, "password": password}
+    myresp = userCollection.find_one(myquery)
 
+    if myresp is not None :
+        return str(myresp.get("_id"))
+    else:
+        #logging.WARN(f' Falsche Anmeldung von Benuzter: {username}')
+        raise HTTPException(status_code=401, detail="Gültige Authentifizierung")
 
-# mydb = myclient["Ceenit"]
-# myCol = mydb["users"]
 
 

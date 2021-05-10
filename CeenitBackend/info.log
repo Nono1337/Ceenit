@@ -456,3 +456,9 @@
 2021-03-16 11:11:58,726 - multipart.multipart - DEBUG - Calling on_part_data with data[1799:1810]
 2021-03-16 11:11:58,726 - multipart.multipart - DEBUG - Calling on_part_end with no data
 2021-03-16 11:11:58,726 - multipart.multipart - DEBUG - Calling on_end with no data
+2021-05-07 12:07:47,389 - asyncio - DEBUG - Using selector: SelectSelector
+2021-05-07 12:24:59,752 - asyncio - DEBUG - Using selector: SelectSelector
+2021-05-07 12:27:13,436 - asyncio - DEBUG - Using selector: SelectSelector
+2021-05-07 12:27:30,995 - asyncio - DEBUG - Using selector: SelectSelector
+2021-05-07 12:29:37,417 - asyncio - DEBUG - Using selector: SelectSelector
+2021-05-07 14:11:45,075 - asyncio - DEBUG - Using selector: SelectSelector
