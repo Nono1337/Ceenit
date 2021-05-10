@@ -1,5 +1,7 @@
-<h1>{{title}}</h1>
+
 <mat-sidenav-container>
-    <mat-sidenav>Sidenav</mat-sidenav>
-    <mat-sidenav-content>Main</mat-sidenav-content>
+    <mat-sidenav [(opened)]="opened">Sidenav</mat-sidenav>
+    <mat-sidenav-content><h1>{{title}}</h1>
+        <button (click)="opened=!opened">Toggle opened</button>
+    </mat-sidenav-content>
 </mat-sidenav-container>
