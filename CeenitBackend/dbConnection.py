@@ -1,6 +1,7 @@
 import logging
 from fastapi import HTTPException
 import pymongo
+import BaseModel.ModelUser
 
 def DBconnect():
     client = pymongo.MongoClient("mongodb+srv://ceenit_admin:KHPta9S8dAIbSOe9@ceenit.kjvno.mongodb.net/Ceenit?retryWrites=true&w=majority")
@@ -19,4 +20,8 @@ def loginUser(username: str, password: str):
         raise HTTPException(status_code=401, detail="Gültige Authentifizierung")
 
 
-
+def createUser(user: BaseModel.ModelUser.CreateUser):
+    db = DBconnect()
+    userCollection = db["users"]
+    result =userCollection.insert_one(user)
+    return result

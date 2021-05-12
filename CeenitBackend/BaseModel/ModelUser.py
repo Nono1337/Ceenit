@@ -1,10 +1,18 @@
-from pydantic import  BaseModel
-from typing import  Optional
+from pydantic import BaseModel
+from typing import Optional
 
-class User(BaseModel):
-    id: str
-    username:str
-    email: Optional[str]= None
-    fristname: Optional[str] = None
-    lastname: Optional[str] = None
-    password:str
+
+class LoginUser(BaseModel):
+    username: str
+    password: str
+
+
+class CreateUser(BaseModel):
+    username: str
+    password: str
+    email: str
+    firstname: str
+    lastname: str
+
+    def __init__(self):
+        self.data = []
