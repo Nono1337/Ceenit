@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
 
-
 class LoginUser(BaseModel):
     username: str
     password: str
@@ -13,6 +12,3 @@ class CreateUser(BaseModel):
     email: str
     firstname: str
     lastname: str
-
-    def __init__(self):
-        self.data = []

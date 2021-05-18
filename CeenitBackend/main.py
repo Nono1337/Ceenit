@@ -11,7 +11,7 @@ import BaseModel.ModelUser
 import requests
 # globale Varibalen
 import dbConnection
-import Response.Movie
+from Response.Movie import MovieList
 
 VERSION = '1.0'
 app = FastAPI()
@@ -49,17 +49,26 @@ def getMovieSearch(title: str):
     headers = {}
 
     response = requests.request("GET", url, headers=headers, data=payload)
+    data =json.loads(response.text)
 
-    print(response.text)
-    my_json = response.content.decode('utf8').replace("'", '"')
     myReturn= []
-    for item in my_json["result"]:
-        movieList =Response.Movie.MovieList()
-        movieList.movieId = item["id"]
-        movieList.title = item["title"]
-        movieList.poster_path = "https://image.tmdb.org/t/p/w500/"+ item["poster_path"]
 
-    return response
+    for item in data["results"]:
+        try:
+            movie_list = MovieList()
+            movie_list.movieId = str(item["id"])
+            movie_list.title = item["title"]
+
+            if item["poster_path"] is not None:
+                movie_list.poster_path = f'https://image.tmdb.org/t/p/w500/{item["poster_path"]}'
+
+            if "release_date" in item:
+                movie_list.releaseDate = item["release_date"]
+
+            myReturn.append(movie_list)
+        except Exception as err:
+            print('Handling run-time error: '+ err)
+    return myReturn
     #https://api.themoviedb.org/3/search/movie?api_key=4b2ecb935b35b20429859a891b9941a8&query=Joker
     #https://image.tmdb.org/t/p/w500/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg Bild für die Suche
 
