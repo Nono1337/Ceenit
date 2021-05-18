@@ -13,7 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoutingModule } from './routing/routing.module';
 import { HomeComponent } from './home/home.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button';
+import { SearchComponent } from './search/search.component'
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button'
     CeenitWatchlistComponent,
     CeenitTimelineComponent,
     HomeComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
