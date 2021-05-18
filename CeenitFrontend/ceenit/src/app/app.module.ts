@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppComponent } from './app.component';
 import { CeenitListsComponent } from './ceenit-lists/ceenit-lists.component';
@@ -12,8 +15,7 @@ import { CeenitTimelineComponent } from './ceenit-timeline/ceenit-timeline.compo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoutingModule } from './routing/routing.module';
 import { HomeComponent } from './home/home.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+
 import { SearchComponent } from './search/search.component'
 
 @NgModule({
@@ -34,7 +36,8 @@ import { SearchComponent } from './search/search.component'
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    RoutingModule
+    RoutingModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
