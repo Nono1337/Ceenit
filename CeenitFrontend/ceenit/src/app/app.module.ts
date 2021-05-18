@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppComponent } from './app.component';
 import { CeenitListsComponent } from './ceenit-lists/ceenit-lists.component';
@@ -8,6 +10,10 @@ import { CeenitReviewsComponent } from './ceenit-reviews/ceenit-reviews.componen
 import { CeenitWatchlistComponent } from './ceenit-watchlist/ceenit-watchlist.component';
 import { CeenitTimelineComponent } from './ceenit-timeline/ceenit-timeline.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RoutingModule } from './routing/routing.module';
+import { HomeComponent } from './home/home.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button'
 
 @NgModule({
   declarations: [
@@ -15,12 +21,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CeenitListsComponent,
     CeenitReviewsComponent,
     CeenitWatchlistComponent,
-    CeenitTimelineComponent
+    CeenitTimelineComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatListModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    RoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
