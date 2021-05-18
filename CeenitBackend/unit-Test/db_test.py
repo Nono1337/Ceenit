@@ -1,13 +1,17 @@
 import dbConnection
 import unittest
-from  fastapi import HTTPException
+from fastapi import HTTPException
+from BaseModel.ModelUser import CreateUser
+from faker import Faker
+
 
 class TestDB(unittest.TestCase):
     def test_connection(self):
-        db= dbConnection.DBconnect()
+        db = dbConnection.DBconnect()
         myCol = db["users"]
         for x in myCol.find():
-            self.assertEqual(str(x), "{'_id': ObjectId('60814dab36edb0a032855243'), 'username': 'TestuserStark', 'email': 'sean_bean@asd.com', 'fristname': 'Sean', 'lastname': 'Bean', 'password': 'testpassword'}")
+            self.assertEqual(str(x),
+                             "{'_id': ObjectId('60814dab36edb0a032855243'), 'username': 'TestuserStark', 'email': 'sean_bean@asd.com', 'lastname': 'Bean', 'password': 'testpassword', 'firstname': 'Sean'}")
 
     def test_loginUser(self):
         id = dbConnection.loginUser("TestuserStark", "testpassword")
@@ -15,6 +19,22 @@ class TestDB(unittest.TestCase):
         with self.assertRaises(HTTPException) as context:
             dbConnection.loginUser("failUser", "failPassword")
         self.assertTrue('Gültige Authentifizierung' in context.exception.detail)
+
+    def test_CreateUser(self):
+        fake = Faker()
+        firstname = fake.first_name()
+        lastname = fake.last_name()
+        user = {
+            "firstname": firstname,
+            "lastname": lastname,
+            "username": firstname + lastname,
+            "password": "start123",
+            "email": firstname + "." + lastname + "@mail.de"
+        }
+        id = dbConnection.createUser(user)
+
+        self.assertEqual(id, dbConnection.loginUser(user["username"], user["password"]))
+
 
 if __name__ == '__main__':
     unittest.main()
