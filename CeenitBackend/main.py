@@ -50,7 +50,7 @@ def getMovieSearch(title: str):
 
 
 @app.get("/movie/detail/{movieid}")
-def getReviewToMovie(movieid: int):
+def getDetails(movieid: int):
     pass
 
 @app.post("/movie/review/{movieid}")
