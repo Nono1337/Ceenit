@@ -4,6 +4,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
 import { CeenitListsComponent } from './ceenit-lists/ceenit-lists.component';
@@ -22,6 +23,7 @@ import {
 } from '@angular/material/form-field';
 import { MovieListComponent } from './pages/movie-list/movie-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MoviePictureListComponent } from './movie-picture-list/movie-picture-list.component'
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     SearchComponent,
     MovieListComponent,
+    MoviePictureListComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatSidenavModule,
     MatListModule,
     MatToolbarModule,
+    MatGridListModule,
     MatIconModule,
     MatButtonModule,
     RoutingModule,

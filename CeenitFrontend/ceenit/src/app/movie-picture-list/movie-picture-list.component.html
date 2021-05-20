@@ -1,0 +1,15 @@
+<h1>THE TOP 5 HOTTEST MOVIES</h1>
+<mat-grid-list *ngIf=tiles [cols]="tiles?.length" rowHeight="2:1">
+    <mat-grid-tile
+    *ngFor="let tile of tiles"
+    colspan=1
+    rowspan=2
+    [style.background]="tile.color">
+    <img [src]="tile.picture" style="height: 333px; width: 227px;">
+    <mat-grid-tile-footer>
+        <h3>{{tile.title}}</h3>
+      </mat-grid-tile-footer>
+    </mat-grid-tile>
+      
+  </mat-grid-list>
+  
