@@ -6,6 +6,7 @@ import { CeenitReviewsComponent } from '../ceenit-reviews/ceenit-reviews.compone
 import { CeenitTimelineComponent } from '../ceenit-timeline/ceenit-timeline.component';
 import { CeenitWatchlistComponent } from '../ceenit-watchlist/ceenit-watchlist.component';
 import { HomeComponent } from '../home/home.component';
+import { SearchComponent } from '../search/search.component';
 HomeComponent
 CeenitWatchlistComponent
 CeenitTimelineComponent
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'reviews', component: CeenitReviewsComponent},
   { path: 'timeline', component: CeenitTimelineComponent},
   { path: 'watchlist', component: CeenitWatchlistComponent},
-  { path: 'home', component: HomeComponent},
+  { path: 'home', component: HomeComponent },
+  {path: 'search/:title', component: SearchComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full'}
 
 ]

@@ -20,7 +20,7 @@ class MovieList(object):
     #     self.poster_path = posterpath
 
 
-class MovieDetail():
+class MovieDetail(object):
     movieId: int
     title: str
     releaseDate: str
@@ -31,7 +31,7 @@ class MovieDetail():
     rating: float
 
 
-class Review():
+class Review(object):
     movieId: int
     userId: str
     rating: int

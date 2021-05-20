@@ -14,7 +14,13 @@ import { RoutingModule } from './routing/routing.module';
 import { HomeComponent } from './home/home.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { SearchComponent } from './search/search.component'
+import { SearchComponent } from './search/search.component';
+import { MatInputModule } from '@angular/material/input';
+import {
+  MatFormFieldModule,
+} from '@angular/material/form-field';
+import { MovieListComponent } from './pages/movie-list/movie-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,6 +31,7 @@ import { SearchComponent } from './search/search.component'
     CeenitTimelineComponent,
     HomeComponent,
     SearchComponent,
+    MovieListComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,9 +41,12 @@ import { SearchComponent } from './search/search.component'
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    RoutingModule
+    RoutingModule,
+    MatFormFieldModule,
+    MatInputModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
