@@ -37,38 +37,14 @@ def getLogin(user: BaseModel.ModelUser.LoginUser):
 
 @app.get("/movie/getFiveHottest")
 def getFiveHottest():
-
-    pass
-
+    url = "https://api.themoviedb.org/3/movie/popular?api_key=4b2ecb935b35b20429859a891b9941a8"
+    return callMovieDataBaseApi(url)[:5]
 
 @app.get("/movie/search/{title}")
 def getMovieSearch(title: str):
     url = "https://api.themoviedb.org/3/search/movie?api_key=4b2ecb935b35b20429859a891b9941a8&query="+ title
+    return callMovieDataBaseApi(url)
 
-    payload = {}
-    headers = {}
-
-    response = requests.request("GET", url, headers=headers, data=payload)
-    data =json.loads(response.text)
-
-    myReturn= []
-
-    for item in data["results"]:
-        try:
-            movie_list = MovieList()
-            movie_list.movieId = str(item["id"])
-            movie_list.title = item["title"]
-
-            if item["poster_path"] is not None:
-                movie_list.poster_path = f'https://image.tmdb.org/t/p/w500/{item["poster_path"]}'
-
-            if "release_date" in item:
-                movie_list.releaseDate = item["release_date"]
-
-            myReturn.append(movie_list)
-        except Exception as err:
-            print('Handling run-time error: '+ err)
-    return myReturn
     #https://api.themoviedb.org/3/search/movie?api_key=4b2ecb935b35b20429859a891b9941a8&query=Joker
     #https://image.tmdb.org/t/p/w500/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg Bild für die Suche
 
@@ -109,6 +85,31 @@ def getTimeLine(userid: int):
 def getReviews(userid: int):
     pass
 
+def callMovieDataBaseApi(url: str):
+    payload = {}
+    headers = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+    data =json.loads(response.text)
+
+    myReturn= []
+
+    for item in data["results"]:
+        try:
+            movie_list = MovieList()
+            movie_list.movieId = str(item["id"])
+            movie_list.title = item["title"]
+
+            if item["poster_path"] is not None:
+                movie_list.poster_path = f'https://image.tmdb.org/t/p/w500/{item["poster_path"]}'
+
+            if "release_date" in item:
+                movie_list.releaseDate = item["release_date"]
+
+            myReturn.append(movie_list)
+        except Exception as err:
+            print('Handling run-time error: '+ err)
+    return myReturn
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=1234)
