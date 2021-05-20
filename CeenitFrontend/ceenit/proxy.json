@@ -1,0 +1,9 @@
+{
+  "/movie-backend": {
+    "target": "http://localhost:1234",
+    "secure": false,
+    "pathRewrite": {
+      "^/movie-backend": ""
+    }
+  }
+}
