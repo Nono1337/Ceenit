@@ -23,7 +23,7 @@ logging.basicConfig(format='%(asctime)s: %(message)s',
 
 @app.get("/versionsinfo")
 def version():
-    return {'version': VERSION}
+    return {'version': VERSION}''
 
 
 @app.post("/CreateUser")
