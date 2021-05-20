@@ -4,18 +4,21 @@ mat-sidenav {
   height: 100%;
 }
 
-mat-sidenav,
-mat-sidenav-content {
-  padding: 16px;
+mat-sidenav, mat-sidenav-content {
+    padding: 16px;
 }
 
 mat-sidenav {
-  background-color: lightcoral;
-  width: 200px;
+    background-color: lightcoral;
+    width: 200px;
 }
 h1 {
-  color: black;
+    color: black;
 }
+.example-spacer {
+    flex: 1 1 auto;
+}
+
 .header-spacer {
   flex: 1 1 auto;
 }
