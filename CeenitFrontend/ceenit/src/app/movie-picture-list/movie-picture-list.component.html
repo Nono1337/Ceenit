@@ -1,15 +1,12 @@
 <h1>THE TOP 5 HOTTEST MOVIES</h1>
-<mat-grid-list *ngIf=tiles [cols]="tiles?.length" rowHeight="2:1">
+<mat-grid-list *ngIf=hotMovies cols="5" rowHeight="2:1" (click)="toggle($event)">
     <mat-grid-tile
-    *ngFor="let tile of tiles"
+    *ngFor="let movie of hotMovies"
     colspan=1
-    rowspan=2
-    [style.background]="tile.color">
-    <img [src]="tile.picture" style="height: 333px; width: 227px;">
+    rowspan=2>
+    <img [src]="movie.poster_path" style="height: 375px; width: 250px;">
     <mat-grid-tile-footer>
-        <h3>{{tile.title}}</h3>
+        <h2>{{movie.title}}</h2>
       </mat-grid-tile-footer>
     </mat-grid-tile>
-      
   </mat-grid-list>
-  
