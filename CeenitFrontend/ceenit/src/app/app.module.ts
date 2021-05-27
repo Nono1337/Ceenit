@@ -4,7 +4,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card'; 
 
 import { AppComponent } from './app.component';
 import { CeenitListsComponent } from './ceenit-lists/ceenit-lists.component';
@@ -48,7 +49,8 @@ import { MoviePictureListComponent } from './movie-picture-list/movie-picture-li
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

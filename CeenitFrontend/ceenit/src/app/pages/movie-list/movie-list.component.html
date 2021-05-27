@@ -1,16 +1,18 @@
-<div class="movieList">
-  <span *ngIf="lstMovies.length == 0"></span>
-  <mat-card *ngFor="let movie of lstMovies">
+<div>
+<span *ngIf="lstMovies.length == 0"></span>
+ <div *ngFor="let movie of lstMovies" >
+  <mat-card class="movieList">
     <mat-card-header>
-      <div
-        mat-card-avatar
-        style="background-image: url(movie.poster_path)"
-      ></div>
-      <mat-card-title>{{ movie.title }}</mat-card-title>
-      <mat-card-subtitle> ({{ movie.releaseDate }})</mat-card-subtitle>
+      <img mat-card-image [src]="movie.poster_path" class="moviePicture">
     </mat-card-header>
-    <mat-card-actions>
-      <button mat-button>SHOW DETAIL</button>
-    </mat-card-actions>
+    <mat-card-content class="content">
+      <h2> {{ movie.title }} </h2>
+      <p> Veröffentlichung {{ movie.releaseDate }}</p>
+    </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [id]="movie.movieId" (click)="toggle($event)">Mehr Informationen</button>
+      </mat-card-actions>
   </mat-card>
+  <br>
+  </div>
 </div>
