@@ -10,4 +10,16 @@ export class HttpServiceService {
   public getListMoviesByTitle(searchTitle: string) {
     return this.http.get('/movie-backend/movie/search/' + searchTitle);
   }
+
+  public getFiveHottestMovies() {
+    return this.http.get('/movie-backend/movie/getFiveHottest');
+  
+  }
+  
+  /**
+   * getWatchlistByUserID
+   */
+  public getWatchlistByUserID() {
+    
+  }
 }
