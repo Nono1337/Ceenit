@@ -22,4 +22,8 @@ export class HttpServiceService {
   public getWatchlistByUserID() {
     
   }
+
+  public getMovieLists(){
+    return this.http.get('/movie-backend/movie/getMovieLists');
+  }
 }

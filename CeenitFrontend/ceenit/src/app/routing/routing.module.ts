@@ -8,6 +8,7 @@ import { CeenitWatchlistComponent } from '../ceenit-watchlist/ceenit-watchlist.c
 import { HomeComponent } from '../home/home.component';
 import { SearchComponent } from '../search/search.component';
 import { MovieDetailComponent } from '../movie-detail/movie-detail.component';
+import { CeenitListsContentComponent } from '../ceenit-lists-content/ceenit-lists-content.component';
 HomeComponent
 CeenitWatchlistComponent
 CeenitTimelineComponent
@@ -16,6 +17,7 @@ CeenitListsComponent
 
 const routes: Routes = [
   { path: 'lists', component: CeenitListsComponent},
+  { path: 'listsContent', component: CeenitListsContentComponent},
   { path: 'reviews', component: CeenitReviewsComponent},
   { path: 'timeline', component: CeenitTimelineComponent},
   { path: 'watchlist', component: CeenitWatchlistComponent},

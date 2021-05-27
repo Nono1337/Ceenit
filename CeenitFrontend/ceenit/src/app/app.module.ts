@@ -22,7 +22,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MovieListComponent } from './pages/movie-list/movie-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MoviePictureListComponent } from './movie-picture-list/movie-picture-list.component';
-import { MovieDetailComponent } from './movie-detail/movie-detail.component'
+import { MovieDetailComponent } from './movie-detail/movie-detail.component';
+import { CeenitListsContentComponent } from './ceenit-lists-content/ceenit-lists-content.component'
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component'
     MovieListComponent,
     MoviePictureListComponent,
     MovieDetailComponent,
+    CeenitListsContentComponent,
   ],
   imports: [
     BrowserModule,
