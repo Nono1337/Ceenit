@@ -1,7 +1,7 @@
-<div fxLayout="column" fxLayoutAlign="space-around stretch" class="content">
+<div fxLayout="column" fxLayoutAlign="space-around stretch" class="content" style="width: 80%; margin: auto;">
   <mat-card class="banner">
     <mat-card-title>{{ movie.title }}</mat-card-title>
-    <img mat-card-image [src]="movie.backdrop_path" />
+    <img mat-card-image [src]="movie.link + movie.backdrop_path"/>
     <button mat-icon-button>
       <mat-icon>add</mat-icon>
     </button>

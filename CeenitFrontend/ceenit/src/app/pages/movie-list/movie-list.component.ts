@@ -1,6 +1,7 @@
 import { SearchedMovie } from './../../Model/SearchedMovie.model';
 import { Component, Input, OnInit } from '@angular/core';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-list',
@@ -9,7 +10,7 @@ import { Variable } from '@angular/compiler/src/render3/r3_ast';
 })
 export class MovieListComponent implements OnInit {
   @Input() lstMovies : SearchedMovie[];
-  constructor() { }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
   }
@@ -19,9 +20,11 @@ export class MovieListComponent implements OnInit {
   }
 
   toggle(event): void {
-    if (event.target.id == '')
-    console.log(event.target.__ngContext__[0].id)
-    else
-    console.log(event.target.id)
+    if (event.target.id == ''){
+      this.router.navigateByUrl('/movie/' + event.target.__ngContext__[0].id);      
+    }
+    else {
+      this.router.navigateByUrl('/movie/' + event.target.id);
+    }
   }
 }
