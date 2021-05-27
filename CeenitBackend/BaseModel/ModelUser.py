@@ -12,3 +12,4 @@ class CreateUser(BaseModel):
     email: str
     firstname: str
     lastname: str
+

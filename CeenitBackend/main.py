@@ -8,6 +8,7 @@ from fastapi import FastAPI, File, UploadFile, status
 import logging
 import uvicorn
 import BaseModel.ModelUser
+import BaseModel.List
 import requests
 # globale Varibalen
 import dbConnection
@@ -23,7 +24,7 @@ logging.basicConfig(format='%(asctime)s: %(message)s',
 
 @app.get("/versionsinfo")
 def version():
-    return {'version': VERSION}#
+    return {'version': VERSION}
 
 
 @app.post("/CreateUser")
@@ -46,17 +47,30 @@ def getMovieSearch(title: str):
     url = "https://api.themoviedb.org/3/search/movie?api_key=4b2ecb935b35b20429859a891b9941a8&query="+ title
     resultMovieDataBase = callMovieDataBaseApi(url)
     return changeMovieDataResponseToMovieList(resultMovieDataBase)
-
     #https://api.themoviedb.org/3/search/movie?api_key=4b2ecb935b35b20429859a891b9941a8&query=Joker
     #https://image.tmdb.org/t/p/w500/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg Bild für die Suche
-
-
 
 @app.get("/movie/detail/{movieid}")
 def getDetails(movieid: int):
     url = "https://api.themoviedb.org/3/movie/"+str(movieid)+"?api_key=4b2ecb935b35b20429859a891b9941a8"
     resultMovieDataBase = callMovieDataBaseApi(url)
     return changeMovieDataResponseToMovie(resultMovieDataBase)
+
+@app.get("/list/{list_id}")
+def getListById(list_id: str):
+    return dbConnection.getMovieListById(list_id)
+
+@app.get("/lists/{list_name}")
+def getListsByName(list_name: str):
+    return dbConnection.getMovieListByName(list_name)
+
+@app.post("/list")
+def addMovieCollection(movieColletction: BaseModel.List.CreateList):
+    return dbConnection.createMovielist(movieColletction)
+
+@app.delete("/list")
+def delete(list_id):
+    pass
 
 @app.post("/movie/review/{movieid}")
 def postReviewToMovie(movieid: int):
@@ -70,6 +84,7 @@ def postMovieRating(movieid : int):
 @app.get("/account/watchlist/{userid}")
 def getWatchlist(userid: int):
     pass
+
 
 
 @app.post("/account/watchlist/{userid}")
