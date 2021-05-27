@@ -3,6 +3,7 @@ import { HttpServiceService } from 'src/app/service/http-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { HottestMovie } from '../Model/HottestMovie.model';
 import { asLiteral } from '@angular/compiler/src/render3/view/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-picture-list',
@@ -12,7 +13,7 @@ import { asLiteral } from '@angular/compiler/src/render3/view/util';
 
 export class MoviePictureListComponent implements OnInit {
 
-  constructor(private httpServe: HttpServiceService, private route: ActivatedRoute) {}
+  constructor(private httpServe: HttpServiceService, private route: ActivatedRoute, private router: Router) {}
   hotMovies: HottestMovie[];
 
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class MoviePictureListComponent implements OnInit {
   }
 
   toggle(event) {
-    console.log(event.target); 
+    this.router.navigateByUrl('/movie/' + event.target.id);
  }
 }
 

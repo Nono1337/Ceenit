@@ -21,6 +21,7 @@ export class MovieDetailComponent implements OnInit {
         if (resp != undefined) {
           // @ts-ignore: TS2339
           this.movie = resp;
+          this.movie.link = "https://image.tmdb.org/t/p/w500/"
         }
       });
   }
