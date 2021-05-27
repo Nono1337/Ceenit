@@ -21,7 +21,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MovieListComponent } from './pages/movie-list/movie-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MoviePictureListComponent } from './movie-picture-list/movie-picture-list.component'
+import { MoviePictureListComponent } from './movie-picture-list/movie-picture-list.component';
+import { MovieDetailComponent } from './movie-detail/movie-detail.component'
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MoviePictureListComponent } from './movie-picture-list/movie-picture-li
     SearchComponent,
     MovieListComponent,
     MoviePictureListComponent,
+    MovieDetailComponent,
   ],
   imports: [
     BrowserModule,
