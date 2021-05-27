@@ -21,7 +21,8 @@ const routes: Routes = [
   { path: 'watchlist', component: CeenitWatchlistComponent},
   { path: 'home', component: HomeComponent },
   { path: 'detail', component: MovieDetailComponent},
-  {path: 'search/:title', component: SearchComponent},
+  { path: 'search/:title', component: SearchComponent },
+  { path: 'movie/:id', component: MovieDetailComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full'}
 
 ]

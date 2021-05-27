@@ -1,1 +1,29 @@
-<p>movie-detail works!</p>
+<div fxLayout="column" fxLayoutAlign="space-around stretch" class="content">
+  <mat-card class="banner">
+    <mat-card-title>{{ movie.title }}</mat-card-title>
+    <img mat-card-image [src]="movie.backdrop_path" />
+    <button mat-icon-button>
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>visibility</mat-icon>
+    </button>
+  </mat-card>
+  <mat-card>
+    <mat-card-title>Beschreibung</mat-card-title>
+    <mat-card-content>{{ movie.overview }}</mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-title>Metadaten</mat-card-title>
+  </mat-card>
+  <mat-card>
+    <mat-card-title>Reviews</mat-card-title>
+    <mat-card>
+      <mat-card-subtitle
+        >Review by Benuzter Rating Comments Icon Comments Counter
+        <mat-icon>add</mat-icon>
+      </mat-card-subtitle>
+      <mat-card-content>Review Text</mat-card-content>
+    </mat-card>
+  </mat-card>
+</div>

@@ -1,4 +1,4 @@
-import { Movie } from './../../Model/movie.model';
+import { MovieList } from './../../Model/movie.model';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./movie-list.component.css']
 })
 export class MovieListComponent implements OnInit {
-  @Input() lstMovies : Movie[];
+  @Input() lstMovies : MovieList[];
   constructor() { }
 
   ngOnInit(): void {
