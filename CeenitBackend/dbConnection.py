@@ -23,7 +23,7 @@ def loginUser(username: str, password: str):
         raise HTTPException(status_code=401, detail="Gültige Authentifizierung")
 
 
-def findUsername(username: str, dbConnect):
+def findUsername(username: str, dbConnect):#sad
     userCollection = dbConnect["users"]
     myquery = {"username": username}
     myresp = userCollection.find_one(myquery)
