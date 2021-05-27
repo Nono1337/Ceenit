@@ -13,5 +13,13 @@ export class HttpServiceService {
 
   public getFiveHottestMovies() {
     return this.http.get('/movie-backend/movie/getFiveHottest');
+  
+  }
+  
+  /**
+   * getWatchlistByUserID
+   */
+  public getWatchlistByUserID() {
+    
   }
 }

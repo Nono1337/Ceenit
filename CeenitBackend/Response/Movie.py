@@ -28,7 +28,7 @@ class MovieDetail(object):
     poster_path: str
     backdrop_path: str
     adult: bool
-    rating: float
+    rating: str
 
 
 class Review(object):

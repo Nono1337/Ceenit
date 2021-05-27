@@ -18,9 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SearchComponent } from './search/search.component';
 import { MatInputModule } from '@angular/material/input';
-import {
-  MatFormFieldModule,
-} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MovieListComponent } from './pages/movie-list/movie-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MoviePictureListComponent } from './movie-picture-list/movie-picture-list.component'

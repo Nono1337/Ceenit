@@ -11,7 +11,7 @@ import BaseModel.ModelUser
 import requests
 # globale Varibalen
 import dbConnection
-from Response.Movie import MovieList
+from Response.Movie import MovieList, MovieDetail
 
 VERSION = '1.0'
 app = FastAPI()
@@ -38,20 +38,25 @@ def getLogin(user: BaseModel.ModelUser.LoginUser):
 @app.get("/movie/getFiveHottest")
 def getFiveHottest():
     url = "https://api.themoviedb.org/3/movie/popular?api_key=4b2ecb935b35b20429859a891b9941a8"
-    return callMovieDataBaseApi(url)[:5]
+    resultMovieDataBase =  callMovieDataBaseApi(url)
+    return changeMovieDataResponseToMovieList(resultMovieDataBase)[:5]
 
 @app.get("/movie/search/{title}")
 def getMovieSearch(title: str):
     url = "https://api.themoviedb.org/3/search/movie?api_key=4b2ecb935b35b20429859a891b9941a8&query="+ title
-    return callMovieDataBaseApi(url)
+    resultMovieDataBase = callMovieDataBaseApi(url)
+    return changeMovieDataResponseToMovieList(resultMovieDataBase)
 
     #https://api.themoviedb.org/3/search/movie?api_key=4b2ecb935b35b20429859a891b9941a8&query=Joker
     #https://image.tmdb.org/t/p/w500/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg Bild für die Suche
 
 
+
 @app.get("/movie/detail/{movieid}")
 def getDetails(movieid: int):
-    pass
+    url = "https://api.themoviedb.org/3/movie/"+str(movieid)+"?api_key=4b2ecb935b35b20429859a891b9941a8"
+    resultMovieDataBase = callMovieDataBaseApi(url)
+    return changeMovieDataResponseToMovie(resultMovieDataBase)
 
 @app.post("/movie/review/{movieid}")
 def postReviewToMovie(movieid: int):
@@ -92,9 +97,36 @@ def callMovieDataBaseApi(url: str):
     response = requests.request("GET", url, headers=headers, data=payload)
     data =json.loads(response.text)
 
-    myReturn= []
+    return data
 
-    for item in data["results"]:
+def changeMovieDataResponseToMovie(item):
+    movieDetail = MovieDetail()
+
+    try:
+            movieDetail.movieId = str(item["id"])
+            movieDetail.title = item["title"]
+
+            if item["poster_path"] is not None:
+                movieDetail.poster_path = f'https://image.tmdb.org/t/p/w500/{item["poster_path"]}'
+
+            if "release_date" in item:
+                movieDetail.releaseDate = item["release_date"]
+            if "overview" in item:
+                movieDetail.overview = item["overview"]
+            if "backdrop_path" in item:
+                movieDetail.backdrop_path = item["backdrop_path"]
+            if "adult" in item:
+                movieDetail.adult = item["adult"]
+            if "vote_average" in item:
+                movieDetail.rating = item["vote_average"]
+
+    except Exception as err:
+            print('Handling run-time error: ' + err)
+    return movieDetail
+
+def changeMovieDataResponseToMovieList(results):
+    myReturn = []
+    for item in results["results"]:
         try:
             movie_list = MovieList()
             movie_list.movieId = str(item["id"])
@@ -110,6 +142,8 @@ def callMovieDataBaseApi(url: str):
         except Exception as err:
             print('Handling run-time error: '+ err)
     return myReturn
+
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=1234)

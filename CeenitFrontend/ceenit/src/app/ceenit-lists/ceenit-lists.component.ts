@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import { HttpServiceService } from 'src/app/service/http-service.service';
+import { ActivatedRoute } from '@angular/router';
+import { Movie } from '../Model/movie.model';
 
 @Component({
   selector: 'app-ceenit-lists',
@@ -7,9 +12,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CeenitListsComponent implements OnInit {
 
-  constructor() { }
-
+  constructor() {}
+  
   ngOnInit(): void {
+    
   }
 
 }
