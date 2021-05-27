@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { Movie } from '../Model/movie.model';
 import { HttpServiceService } from 'src/app/service/http-service.service';
 import { ActivatedRoute } from '@angular/router';
-import { MovieList } from '../Model/movie.model';
+
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css'],
+  selector: 'app-ceenit-lists-content',
+  templateUrl: './ceenit-lists-content.component.html',
+  styleUrls: ['./ceenit-lists-content.component.css']
 })
-export class SearchComponent implements OnInit {
+export class CeenitListsContentComponent implements OnInit {
+
+  ListContent : Movie[];
   constructor(private httpServe: HttpServiceService, private route: ActivatedRoute) {}
-  lstMovies: MovieList[];
-  
+
   ngOnInit(): void {
-    this.lstMovies = new Array<MovieList>();
+    this.ListContent = new Array<Movie>();
     this.httpServe
       .getListMoviesByTitle(this.route.snapshot.paramMap.get('title'))
       .subscribe((resp) => {
@@ -20,9 +22,11 @@ export class SearchComponent implements OnInit {
         if (resp != undefined) {
           // @ts-ignore: TS2339
           resp.forEach((movie) => {
-            this.lstMovies.push(movie);
+            this.ListContent.push(movie);
           });
         }
       });
   }
+
+
 }

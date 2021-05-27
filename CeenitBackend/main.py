@@ -8,9 +8,11 @@ from fastapi import FastAPI, File, UploadFile, status
 import logging
 import uvicorn
 import BaseModel.ModelUser
+import BaseModel.ModelList
 import requests
 # globale Varibalen
 import dbConnection
+from BaseModel import ModelMovie
 from Response.Movie import MovieList, MovieDetail
 
 VERSION = '1.0'
@@ -20,10 +22,13 @@ app = FastAPI()
 logging.basicConfig(format='%(asctime)s: %(message)s',
                     level=logging.INFO, datefmt='%H:%M:%S')
 
+@app.get("/")
+def home():
+    return "Welcome to Ceenit Backend API"
 
 @app.get("/versionsinfo")
 def version():
-    return {'version': VERSION}#
+    return {'version': VERSION}
 
 
 @app.post("/CreateUser")
@@ -46,11 +51,8 @@ def getMovieSearch(title: str):
     url = "https://api.themoviedb.org/3/search/movie?api_key=4b2ecb935b35b20429859a891b9941a8&query="+ title
     resultMovieDataBase = callMovieDataBaseApi(url)
     return changeMovieDataResponseToMovieList(resultMovieDataBase)
-
     #https://api.themoviedb.org/3/search/movie?api_key=4b2ecb935b35b20429859a891b9941a8&query=Joker
     #https://image.tmdb.org/t/p/w500/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg Bild für die Suche
-
-
 
 @app.get("/movie/detail/{movieid}")
 def getDetails(movieid: int):
@@ -58,18 +60,43 @@ def getDetails(movieid: int):
     resultMovieDataBase = callMovieDataBaseApi(url)
     return changeMovieDataResponseToMovie(resultMovieDataBase)
 
-@app.post("/movie/review/{movieid}")
-def postReviewToMovie(movieid: int):
-    pass
+@app.get("/lists/")
+def getAllLists():
+    return  dbConnection.getMovieLists()
+
+@app.get("/list/{list_id}")
+def getListById(list_id: str):
+    return dbConnection.getMovieListById(list_id)
+
+@app.get("/lists/{list_name}")
+def getListsByName(list_name: str):
+    return dbConnection.getMovieListByName(list_name)
+
+@app.post("/list")
+def addMovieCollection(movieColletction: BaseModel.ModelList.CreateList):
+    return dbConnection.createMovielist(movieColletction)
+
+@app.delete("/list")
+def delete(list_id):
+    return dbConnection.deleteMovieList(list_id)
+
+@app.post("/movie/{movieid}/review")
+def postReviewToMovie(movieid: int,review: BaseModel.ModelMovie.CreateReview):
+    return dbConnection.createMovieReview(movieid, review)
+
+@app.get("/movie/{movieid}/reviews")
+def getReviews(movieId: int):
+    return dbConnection.getMovieReviewById(movieId)
 
 @app.post("/movie/rating/{movieid}")
-def postMovieRating(movieid : int):
-    pass
+def postMovieRating(movieid : int, movieRating: BaseModel.ModelMovie.MovieRating):
+    return dbConnection.addRating(movieid, movieRating)
 
 # localhost:1234/account/watchlist?userid=1221234
 @app.get("/account/watchlist/{userid}")
 def getWatchlist(userid: int):
     pass
+
 
 
 @app.post("/account/watchlist/{userid}")
@@ -93,7 +120,7 @@ def getReviews(userid: int):
 def callMovieDataBaseApi(url: str):
     payload = {}
     headers = {}
-
+    url += "&language=de"
     response = requests.request("GET", url, headers=headers, data=payload)
     data =json.loads(response.text)
 
@@ -114,7 +141,7 @@ def changeMovieDataResponseToMovie(item):
             if "overview" in item:
                 movieDetail.overview = item["overview"]
             if "backdrop_path" in item:
-                movieDetail.backdrop_path = item["backdrop_path"]
+                movieDetail.backdrop_path = f'https://image.tmdb.org/t/p/w500/{item["backdrop_path"]}'
             if "adult" in item:
                 movieDetail.adult = item["adult"]
             if "vote_average" in item:

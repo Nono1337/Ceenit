@@ -16,10 +16,18 @@ export class HttpServiceService {
   
   }
   
+  public getMovieDetailsById(movieId) {
+    return this.http.get('/movie-backend/movie/detail/'+ movieId)
+  }
+
   /**
    * getWatchlistByUserID
    */
   public getWatchlistByUserID() {
     
+  }
+
+  public getMovieLists(){
+    return this.http.get('/movie-backend/movie/getMovieLists');
   }
 }

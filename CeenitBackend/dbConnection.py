@@ -1,8 +1,12 @@
 import logging
+import time
+from datetime import date
+
 from fastapi import HTTPException
 import pymongo
 import BaseModel.ModelUser
-
+import BaseModel.ModelList
+from bson.objectid import ObjectId
 
 def DBconnect():
     client = pymongo.MongoClient(
@@ -39,3 +43,64 @@ def createUser(user: BaseModel.ModelUser.CreateUser):
     result = userCollection.insert_one(user)
     return str(result.inserted_id)
 
+
+def getMovieListById(list_id):
+    db = DBconnect()
+    listCollection = db["movieLists"]
+    myquery = {"_id": ObjectId(list_id)}
+    myresp = listCollection.find_one(myquery)
+    if myresp is not None:
+        return myresp
+    else:
+        # logging.WARN(f' Falsche Anmeldung von Benuzter: {username}')
+        raise HTTPException(status_code=401, detail="Keine Liste gefunden")
+
+def getMovieListsByName(list_name):
+    db = DBconnect()
+    listCollection = db["movieLists"]
+    myquery = {"name": "*"+list_name + "*"}
+    return list(listCollection.find(myquery))
+
+def getMovieLists():
+    db = DBconnect()
+    listCollection = db["movieLists"]
+    return list(listCollection.find())
+
+def createMovielist(movieColletction : BaseModel.ModelList.CreateList):
+    db = DBconnect()
+    listCollection = db["movieLists"]
+    myquery = {"name": "*" + movieColletction["name"] + "*"}
+    if listCollection.find_one(myquery) is None:
+
+        return str(listCollection.insert_one(movieColletction).inserted_id)
+    else:
+        # logging.WARN(f' Falsche Anmeldung von Benuzter: {username}')
+        raise HTTPException(status_code=400, detail="Liste kann nicht erstellt, da bereits eine Liste mit gleichen vorhanden ist")
+
+def deleteMovieList(list_id):
+    db = DBconnect()
+    myQuery = {"_id": ObjectId(list_id)}
+    return db["movieLists"].delete_one(myQuery)
+
+def createMovieReview(movieid, review):
+    db = DBconnect()
+    review["movieID"] = movieid
+    review["created"] = date.today()
+    return str(db["reviews"].insert_one(review).inserted_id)
+
+def getMovieReviewById(movieId):
+    db = DBconnect()
+    myQuery = {"movieID": movieId}
+    return list(db["reviews"].find(myQuery))
+
+def getRatingByMovieUserId(movieID, userID):
+    db = DBconnect()
+    myQuery = {"movieID": movieID, "userID": ObjectId(userID)}
+    return db["rating"].find_one(myQuery)
+
+def addRating(movieid, movieRating):
+    ratingCollection = DBconnect()["rating"]
+    movieRating["movieID"] = movieid
+    findID = getRatingByMovieUserId(movieid,movieRating["userID"])["_id"]
+    if findID is None:
+        ratingCollection.insert()
