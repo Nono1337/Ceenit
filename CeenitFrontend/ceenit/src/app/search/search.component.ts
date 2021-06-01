@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from 'src/app/service/http-service.service';
 import { ActivatedRoute } from '@angular/router';
-import { Movie } from '../Model/movie.model';
+import { MovieList } from '../Model/movie.model';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -9,10 +9,10 @@ import { Movie } from '../Model/movie.model';
 })
 export class SearchComponent implements OnInit {
   constructor(private httpServe: HttpServiceService, private route: ActivatedRoute) {}
-  lstMovies: Movie[];
+  lstMovies: MovieList[];
   
   ngOnInit(): void {
-    this.lstMovies = new Array<Movie>();
+    this.lstMovies = new Array<MovieList>();
     this.httpServe
       .getListMoviesByTitle(this.route.snapshot.paramMap.get('title'))
       .subscribe((resp) => {
