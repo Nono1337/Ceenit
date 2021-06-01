@@ -6,7 +6,7 @@ from faker import Faker
 from bson.objectid import ObjectId
 
 class TestDB(unittest.TestCase):
-       def test_loginUser(self):
+    def test_loginUser(self):
         id = dbConnection.loginUser("TestuserStark", "testpassword")
         self.assertEqual(id, "60814dab36edb0a032855243")
         with self.assertRaises(HTTPException) as context:
@@ -30,7 +30,7 @@ class TestDB(unittest.TestCase):
 
     def test_getMovieListById(self):
         resp=dbConnection.getMovieListById("60a667979c7e383c848b2cd5")
-        self.assertEqual( resp["name"] ,"Erste Liste")
+        self.assertEqual(resp["name"] ,"Erste Liste")
 
     def test_getMovieListsByName(self):
         resp = dbConnection.getMovieListsByName("Erste Liste")
@@ -54,11 +54,24 @@ class TestDB(unittest.TestCase):
         fake = Faker()
         movieID= 76341
         countReviews=len(dbConnection.getMovieReviewById(movieID))
-        resp=dbConnection.createMovieReview(movieID, {"userID": "60814dab36edb0a032855243", "content" : fake.text()})
-        self.assertEqual(countReviews +1 , len(dbConnection.getMovieReviewById(movieID)))
-    def test_getAllLists():
+        resp = dbConnection.createMovieReview(movieID, {"userID": "60814dab36edb0a032855243", "content": fake.text()})
+        self.assertEqual(countReviews + 1 , len(dbConnection.getMovieReviewById(movieID)))
+
+    def test_getAllLists(self):
         resp =dbConnection.getMovieLists()
         print(resp)
+
+    def test_getWatchlist(self):
+        resp=dbConnection.getWatchlist("60814dab36edb0a032855243")
+        self.assertEqual(resp[0]["title"], "Tom Clancy's Gnadenlos")
+
+    def test_AddMovieToWatchlist(self):
+        resp = dbConnection.addMovieToWatchlist("60814dab36edb0a032855243", 76341)
+        self.assertEqual(resp['updatedExisting'], True)
+
+    def test_GetMovieReviewByUserID(self):
+        resp = dbConnection.getMovieReviewByUserID("60814dab36edb0a032855243")
+        self.assertEqual(resp[0]["content"], "Das erste Review" )
 
 if __name__ == '__main__':
     unittest.main()

@@ -5,7 +5,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card'; 
+
 
 import { AppComponent } from './app.component';
 import { CeenitListsComponent } from './ceenit-lists/ceenit-lists.component';
@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MoviePictureListComponent } from './movie-picture-list/movie-picture-list.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { CeenitListsContentComponent } from './ceenit-lists-content/ceenit-lists-content.component'
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [

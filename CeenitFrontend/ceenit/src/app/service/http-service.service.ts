@@ -27,7 +27,7 @@ export class HttpServiceService {
     
   }
 
-  public getMovieLists(){
+  public getMovieList(){
     return this.http.get('/movie-backend/movie/getMovieLists');
   }
 }

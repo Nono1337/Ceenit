@@ -13,3 +13,6 @@ class CreateUser(BaseModel):
     firstname: str
     lastname: str
 
+class CreateWatchlist(BaseModel):
+    name:str
+    
