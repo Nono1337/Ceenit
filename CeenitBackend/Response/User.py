@@ -1,6 +1,6 @@
 import datetime
 
-class Timeline():
+class Timeline(object):
     movieId:int
     title: str
     releaseDate: str

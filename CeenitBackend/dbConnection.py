@@ -1,12 +1,12 @@
-import logging
-import time
-from datetime import date
+import datetime
 
-from fastapi import HTTPException
 import pymongo
-import BaseModel.ModelUser
-import BaseModel.ModelList
 from bson.objectid import ObjectId
+from fastapi import HTTPException
+
+import BaseModel.ModelList
+import BaseModel.ModelUser
+
 
 def DBconnect():
     client = pymongo.MongoClient(
@@ -36,7 +36,7 @@ def findUsername(username: str, dbConnect):
 
 def createUser(user: BaseModel.ModelUser.CreateUser):
     db = DBconnect()
-    if findUsername(user["username"], db) == True:
+    if findUsername(user["username"], db):
         # logging.WARN(f' Falsche Anmeldung von Benuzter: {username}')
         raise HTTPException(status_code=400, detail="Benutzer ist bereits vorhanden")
     userCollection = db["users"]
@@ -55,18 +55,21 @@ def getMovieListById(list_id):
         # logging.WARN(f' Falsche Anmeldung von Benuzter: {username}')
         raise HTTPException(status_code=401, detail="Keine Liste gefunden")
 
+
 def getMovieListsByName(list_name):
     db = DBconnect()
     listCollection = db["movieLists"]
-    myquery = {"name": "*"+list_name + "*"}
+    myquery = {"name": {'$regex': list_name, '$options': 'i'}}
     return list(listCollection.find(myquery))
+
 
 def getMovieLists():
     db = DBconnect()
     listCollection = db["movieLists"]
     return list(listCollection.find())
 
-def createMovielist(movieColletction : BaseModel.ModelList.CreateList):
+
+def createMovielist(movieColletction: BaseModel.ModelList.CreateList):
     db = DBconnect()
     listCollection = db["movieLists"]
     myquery = {"name": "*" + movieColletction["name"] + "*"}
@@ -75,32 +78,66 @@ def createMovielist(movieColletction : BaseModel.ModelList.CreateList):
         return str(listCollection.insert_one(movieColletction).inserted_id)
     else:
         # logging.WARN(f' Falsche Anmeldung von Benuzter: {username}')
-        raise HTTPException(status_code=400, detail="Liste kann nicht erstellt, da bereits eine Liste mit gleichen vorhanden ist")
+        raise HTTPException(status_code=400,
+                            detail="Liste kann nicht erstellt, da bereits eine Liste mit gleichen vorhanden ist")
+
 
 def deleteMovieList(list_id):
     db = DBconnect()
     myQuery = {"_id": ObjectId(list_id)}
     return db["movieLists"].delete_one(myQuery)
 
+
 def createMovieReview(movieid, review):
     db = DBconnect()
     review["movieID"] = movieid
-    review["created"] = date.today()
-    return str(db["reviews"].insert_one(review).inserted_id)
+    review["created"] = datetime.datetime.now()
+    return str(db["reviews"].insert_one(review))
+
 
 def getMovieReviewById(movieId):
     db = DBconnect()
     myQuery = {"movieID": movieId}
     return list(db["reviews"].find(myQuery))
 
+
 def getRatingByMovieUserId(movieID, userID):
     db = DBconnect()
     myQuery = {"movieID": movieID, "userID": ObjectId(userID)}
     return db["rating"].find_one(myQuery)
 
+
 def addRating(movieid, movieRating):
     ratingCollection = DBconnect()["rating"]
     movieRating["movieID"] = movieid
-    findID = getRatingByMovieUserId(movieid,movieRating["userID"])["_id"]
+    findID = getRatingByMovieUserId(movieid, movieRating["userID"])["_id"]
     if findID is None:
-        ratingCollection.insert()
+        return ratingCollection.insert(movieRating)
+
+
+def getWatchlist(userid):
+    db = DBconnect()
+    myquery = {"userID": ObjectId(userid)}
+    return list(db["watchlist"].find(myquery))
+
+
+def isMovieInWatchlist(watchListCollect, myQuery):
+    if watchListCollect.find_one(myQuery) is None:
+        return False
+    else:
+        return True
+
+
+def addMovieToWatchlist(userid, movieID):
+    watchlistCollection = DBconnect()["watchlist"]
+    myQuery = {"userID": ObjectId(userid), "movieID": movieID}
+    myInsert = myQuery | {"watchtime": datetime.datetime.now()}
+    if not (isMovieInWatchlist(watchlistCollection, myQuery)):
+        return watchlistCollection.insert(myInsert)
+    return watchlistCollection.update(myQuery, myInsert)
+
+
+def getMovieReviewByUserID(userid):
+    reviewCollect = DBconnect()["reviews"]
+    myQuery = {"userID": ObjectId(userid)}
+    return list(reviewCollect.find(myQuery))
