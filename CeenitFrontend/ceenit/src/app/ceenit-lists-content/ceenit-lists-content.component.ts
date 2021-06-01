@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from '../Model/movie.model';
+import { MovieList } from '../Model/movie.model';
 import { HttpServiceService } from 'src/app/service/http-service.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -10,13 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CeenitListsContentComponent implements OnInit {
 
-  ListContent : Movie[];
+  ListContent : MovieList[];
   constructor(private httpServe: HttpServiceService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.ListContent = new Array<Movie>();
+    this.ListContent = new Array<MovieList>();
     this.httpServe
-      .getListMoviesByTitle(this.route.snapshot.paramMap.get('title'))
+      /*.getListMoviesByTitle(this.route.snapshot.paramMap.get('title'))
       .subscribe((resp) => {
         console.log(resp);
         if (resp != undefined) {
@@ -25,7 +25,7 @@ export class CeenitListsContentComponent implements OnInit {
             this.ListContent.push(movie);
           });
         }
-      });
+      });*/
   }
 
 

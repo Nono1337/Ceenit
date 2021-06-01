@@ -1,0 +1,11 @@
+.movieList {
+    max-width: 500px;
+    margin: auto;
+  }
+
+.moviePicture {
+    height: 187px;
+    width: 125px;
+    margin: auto;
+    border: 5px solid black;
+}

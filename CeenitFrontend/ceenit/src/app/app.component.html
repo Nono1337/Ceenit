@@ -15,7 +15,9 @@
           #searchInput
           placeholder=""
         />
-        <mat-icon>search</mat-icon>
+        <button mat-icon-button (click)="searchHandler(searchInput)">
+          <mat-icon>search</mat-icon>
+        </button>
       </mat-form-field>
     </form>
     <span class="header-spacer"></span>

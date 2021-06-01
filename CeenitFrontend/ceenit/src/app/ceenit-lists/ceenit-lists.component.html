@@ -1,1 +1,13 @@
-<p>ceenit-lists works!</p>
+<div class="movieLists">
+    <span *ngIf="Lists.length == 0"></span>
+    <mat-card *ngFor="let movieList of Lists">
+      <mat-card-header>
+        <mat-card-title>{{ movieList.title }}</mat-card-title>
+        <mat-card-subtitle> ({{ movieList.releaseDate }})</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-button>SHOW DETAIL</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from 'src/app/service/http-service.service';
-import { MovieList } from '../Model/movie.model';
+import { Movie } from '../Model/movie.model';
 
 @Component({
   selector: 'app-ceenit-watchlist',

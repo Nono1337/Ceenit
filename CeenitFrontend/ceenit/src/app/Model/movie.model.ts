@@ -1,6 +1,6 @@
 export class MovieList {
-  public id: string;
+  public movieId: string;
   public title: string;
+  public poster_path: string;
   public relaseDate: string;
-  public posterpath: string;
 }
